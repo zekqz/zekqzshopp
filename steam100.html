@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пополнение Steam</title>
+<style>
+body{font-family:'JetBrains Mono', monospace; background:#0a0a12; color:#c0d8ff; display:flex; justify-content:center; align-items:center; min-height:100vh;}
+.card{background:rgba(10,10,18,0.8); border:1px solid rgba(0,245,255,0.2); border-radius:20px; padding:40px; max-width:400px; width:90%; text-align:center;}
+input{width:100%; padding:14px; margin-bottom:15px; border-radius:10px; border:1px solid rgba(0,245,255,0.3); background:#05050b; color:#00f5ff;}
+.btn{display:block; width:100%; padding:15px; border:none; border-radius:12px; font-weight:700; cursor:pointer; background:linear-gradient(135deg,#00f5ff,#00b3d8); color:#0a0a12;}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Пополнение Steam</h2>
+  <br>
+  <h2>Комиссия 5%</h2>
+  <input type="text" id="steam" placeholder="Steam username">
+  <input type="number" id="amount" placeholder="Сумма (от 20 до 5000)">
+  <button class="btn" onclick="buy()">Купить</button>
+</div>
+
+<script>
+function buy(){
+    const steam = document.getElementById("steam").value.trim();
+    let amount = parseInt(document.getElementById("amount").value);
+
+    if(!steam){
+        alert("Введите свой никнейм Steam!");
+        return;
+    }
+
+    if(isNaN(amount) || amount < 20 || amount > 5000){
+        alert("Введите сумму от 20 до 5000 ₽");
+        return;
+    }
+
+    // создаём заказ для админки с оригинальной суммой
+    const order = {
+        steam: steam,
+        amount: amount,
+        status: "waiting",
+        date: new Date().toISOString()
+    };
+
+    // сохраняем заказ в localStorage
+    let orders = JSON.parse(localStorage.getItem("steam_orders") || "[]");
+    orders.push(order);
+    localStorage.setItem("steam_orders", JSON.stringify(orders));
+
+    // добавляем 5% к сумме
+    const amountWithFee = Math.ceil(amount * 1.05);
+
+    // ссылка на оплату с конкретной суммой
+    const paymentUrl = `https://bot-t.com/payment/gets?link=https://yoomoney.ru/quickpay/confirm.xml&params%5Breceiver%5D=4100119323802485&params%5Bformcomment%5D=r-22952861-341926&params%5Blabel%5D=r-22952861-341926&params%5Bquickpay-form%5D=shop&params%5Btargets%5D=r-22952861-341926&params%5Bsum%5D=${amountWithFee}&params%5Bneed-fio%5D=0&params%5Bneed-phone%5D=0&params%5Bneed-email%5D=0&params%5Bneed-address%5D=0&params%5BpaymentType%5D=PC&params%5BsuccessURL%5D=https%3A%2F%2Fzekqz.github.io%2Fzekqzshoptest%2F`;
+
+    window.location.href = paymentUrl;
+}
+</script>
+
+</body>
+</html>

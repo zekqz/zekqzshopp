@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Добро пожаловать — ZEKQZSHOP.COM</title>
+  <style>
+    body { margin:0; font-family: 'JetBrains Mono', monospace; background:#0a0a12; color:#c0d8ff; display:flex; justify-content:center; align-items:center; height:100vh; text-align:center; }
+    h1 { color:#00f5ff; font-size:3rem; margin-bottom:20px; }
+    p { color:#a0c0ff; margin-bottom:40px; font-size:1.2rem; }
+    .btn { background: linear-gradient(135deg, #00f5ff, #00b3d8); color: #0a0a12; padding: 18px 40px; border:none; border-radius:50px; font-size:1.4rem; font-weight:700; cursor:pointer; text-transform:uppercase; }
+    .btn:hover { box-shadow: 0 0 20px rgba(0,245,255,0.7); transform: translateY(-3px); }
+  </style>
+</head>
+<body>
+
+  <div>
+    <h1>Добро пожаловать в ZEKQZSHOP.COM</h1>
+    <p>Кибер-платформа для покупки скинов, аккаунтов, бустов и привилегий.</p>
+    <button class="btn" id="start-btn">Начать</button>
+  </div>
+
+  <script>
+    document.getElementById('start-btn').addEventListener('click', function() {
+      // Переход на основной сайт
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
